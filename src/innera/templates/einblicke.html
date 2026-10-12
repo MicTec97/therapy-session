@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <p class="tag">Aus den Fragen</p>
+  <h1>Einblicke</h1>
+  <p id="insight-caption">Beispiel, bis du Check-ups ausfüllst</p>
+</header>
+<article class="chart-card">
+  <h2>Wohlbefinden</h2>
+  <p id="insight-summary" class="delta">+18% im Beispiel</p>
+  <svg class="chart" viewBox="0 0 120 36" aria-hidden="true">
+    <polyline id="insight-line" points="{{ line }}"></polyline>
+  </svg>
+</article>
+<div class="metrics">
+  {% for area in areas %}
+  <article class="card up">
+    <h3>{{ area }}</h3>
+    <p class="state">Im Aufbau</p>
+    <p class="delta">aus deinen Zielen</p>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=3"></script>
+<script src="/static/insights.js?v=3"></script>
+{% endblock %}

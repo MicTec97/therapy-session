@@ -1,0 +1,31 @@
+[project]
+name = "innera"
+version = "0.1.0"
+description = "Personal wellness companion"
+readme = "README.md"
+authors = [
+    { name = "Michael Eder", email = "michael.eder@student.tugraz.at" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "jinja2>=3.1.6",
+    "openai>=3.29.0",
+    "starlette>=1.7.0",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+innera = "innera:main"
+
+[build-system]
+requires = ["uv_build>=0.10.10,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

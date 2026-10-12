@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="welcome" class="welcome">
+  <p class="tag">Bevor wir starten</p>
+  <h1>Woran möchtest du arbeiten?</h1>
+  <p>Deine Ziele geben dem Gespräch und den Check-ups eine Richtung.</p>
+  <form id="welcome-form">
+    <div class="choices" role="group" aria-label="Bereiche">
+      {% for area in areas %}
+      <label class="choice">
+        <input type="checkbox" name="area" value="{{ area }}">
+        <span>{{ area }}</span>
+      </label>
+      {% endfor %}
+    </div>
+    <label class="field">Optional: ein Satz dazu
+      <input name="goal" type="text" placeholder="Zum Beispiel ein Gespräch vorbereiten" autocomplete="off">
+    </label>
+    <p id="welcome-hint" class="form-hint" hidden>Wähl mindestens einen Bereich.</p>
+    <button type="submit">Weiter in den Raum</button>
+  </form>
+</section>
+
+<header class="room">
+  <span class="avatar" aria-hidden="true">
+    <svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="5"/><path d="M7 26c1.6-4.2 4.8-6.2 9-6.2S23.4 21.8 25 26"/></svg>
+  </span>
+  <div>
+    <p class="tag">Gesprächsraum</p>
+    <h1>Session</h1>
+    <p id="session-status">Bereit · {{ minutes }} Minuten</p>
+  </div>
+  <button id="session-toggle" type="button">Starten</button>
+</header>
+<div
+  id="thread"
+  data-opening="{{ opening }}"
+  data-closing="{{ closing }}"
+  data-minutes="{{ minutes }}"
+></div>
+<form id="composer">
+  <label class="sr-only" for="message">Nachricht</label>
+  <input id="message" name="message" type="text" placeholder="Schreibe deine Nachricht …" autocomplete="off" disabled>
+  <button type="submit" aria-label="Senden">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6.5 11.5 12 6l5.5 5.5"/></svg>
+  </button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=3"></script>
+<script src="/static/chat.js?v=3"></script>
+{% endblock %}

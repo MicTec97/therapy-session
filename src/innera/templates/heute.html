@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <p class="tag">Kurzer Check-up</p>
+  <h1>Wie war dein Tag?</h1>
+  <p>Ein paar Fragen, gebunden an deine Ziele. Du füllst sie aus, wenn du soweit bist.</p>
+</header>
+<form id="checkup-form" class="panel">
+  <fieldset>
+    <legend>Stimmung</legend>
+    <div class="choices">
+      {% for mood in moods %}
+      <label class="choice">
+        <input type="radio" name="mood" value="{{ mood }}" {% if loop.first %}required{% endif %}>
+        <span>{{ mood }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Hast du heute an deinem Ziel gearbeitet?</legend>
+    <div class="choices">
+      {% for effort in efforts %}
+      <label class="choice">
+        <input type="radio" name="effort" value="{{ effort }}" {% if loop.first %}required{% endif %}>
+        <span>{{ effort }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <label class="field">Was nimmst du mit?
+    <textarea name="note" rows="3" required placeholder="Ein Satz reicht."></textarea>
+  </label>
+  <button type="submit">Check-up speichern</button>
+  <p id="checkup-saved" class="saved" hidden>Gespeichert. Die Einblicke nutzen diesen Check-up.</p>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=3"></script>
+<script src="/static/checkup.js?v=3"></script>
+{% endblock %}
