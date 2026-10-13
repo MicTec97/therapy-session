@@ -1,0 +1,20 @@
+<a class="nav-link" href="/" {% if active == "start" %}aria-current="page"{% endif %}>
+  {% include "icons/home.html" %}
+  Start
+</a>
+<a class="nav-link" href="/gespraech" {% if active == "gespraech" %}aria-current="page"{% endif %}>
+  {% include "icons/chat.html" %}
+  Gespräch
+</a>
+<a class="nav-link" href="/ziele" {% if active == "ziele" %}aria-current="page"{% endif %}>
+  {% include "icons/flag.html" %}
+  Ziele
+</a>
+<a class="nav-link" href="/einblicke" {% if active == "einblicke" %}aria-current="page"{% endif %}>
+  {% include "icons/chart.html" %}
+  Einblicke
+</a>
+<a class="nav-link" href="/tagebuch" {% if active == "tagebuch" %}aria-current="page"{% endif %}>
+  {% include "icons/book.html" %}
+  Tagebuch
+</a>

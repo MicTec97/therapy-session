@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <a class="back" href="/moment">Alle Übungen</a>
+  <h1>{{ exercise.title }}</h1>
+  <p>{{ exercise.text }}</p>
+</header>
+
+{% if exercise.slug == "atmen" %}
+<section class="breath" aria-labelledby="breath-phase">
+  <p id="breath-phase" class="phase">Bereit</p>
+  <div id="breath-orb" class="breath-orb" data-phase="idle"></div>
+  <div class="row">
+    <button id="breath-start" class="btn" type="button">Start</button>
+    <button id="breath-pause" class="btn secondary" type="button" disabled>Pause</button>
+    <button id="breath-stop" class="btn quiet" type="button" disabled>Beenden</button>
+  </div>
+  <p id="breath-note" class="hint">Einatmen, kurz halten, ausatmen. Nichts davon ist eine medizinische Anweisung.</p>
+</section>
+{% elif exercise.slug == "koerper" %}
+<form id="body-form" class="card">
+  {% for step in steps %}
+  <fieldset class="step" data-step="{{ loop.index }}" {% if not loop.first %}hidden{% endif %}>
+    <legend>{{ step }}</legend>
+    <label class="field">Deine Wahrnehmung, optional
+      <textarea name="note-{{ loop.index }}"></textarea>
+    </label>
+    <div class="row">
+      <button class="btn quiet step-skip" type="button">Überspringen</button>
+      {% if loop.last %}
+      <button class="btn finish" type="button">Abschließen</button>
+      {% else %}
+      <button class="btn next" type="button">Weiter</button>
+      {% endif %}
+    </div>
+  </fieldset>
+  {% endfor %}
+  <p id="body-done" class="feedback" hidden>Danke. Du kannst das hier lassen oder ins Tagebuch legen.</p>
+  <div class="actions">
+    <button id="body-save" class="btn secondary" type="button" hidden>Im Tagebuch sichern</button>
+  </div>
+</form>
+{% else %}
+<form id="thoughts-form" class="card">
+  <label class="field">Was beschäftigt mich?
+    <textarea name="busy"></textarea>
+  </label>
+  <label class="field">Was kann ich beeinflussen?
+    <textarea name="influence"></textarea>
+  </label>
+  <label class="field">Was brauche ich gerade?
+    <textarea name="need"></textarea>
+  </label>
+  <p id="thoughts-hint" class="form-hint"></p>
+  <div class="row">
+    <button class="btn" type="submit">Im Tagebuch sichern</button>
+    <a class="btn quiet" href="/moment">Fertig, ohne zu speichern</a>
+  </div>
+  <p id="thoughts-done" class="feedback" aria-live="polite"></p>
+</form>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/exercises.js?v=5"></script>
+{% endblock %}

@@ -8,29 +8,53 @@ INNERA is a personal companion for reflection and daily support. The tone is war
 
 INNERA is a wellness companion. It does not diagnose, treat, or replace a therapist or medical care. If you are in crisis, contact local emergency services or a qualified professional.
 
-## v0
+## Prototype
 
-A local app. The conversation room calls the model through `ModelProvider`.
+A local click-through app. Five areas share one warm layout. The conversation room calls the model through `ModelProvider`. Check-ins, goals, journal entries, and exercise notes stay in the browser until you reset them. Sample charts are labeled Beispiel.
 
-- **Raum** (`/`) — a conversation room with an avatar. The first visit asks for goals. A session has a start, an end, and a 20-minute window.
-- **Ziele** (`/ziele`) — Karriere and Beziehung, with progress taken from check-ups.
-- **Einblicke** (`/einblicke`) — a chart of how the check-up answers move over time.
-- **Heute** (`/heute`) — a short check-up: how the day was, whether a goal got attention, and one sentence to keep.
+- **Start** (`/`) — greeting, avatar, six insight cards, a daily check-in, the week, and a reflection question.
+- **Gespräch** (`/gespraech`) — a quiet room with impulses, a live reply, and an optional summary you can save to the journal. The transcript itself is not stored.
+- **Ziele** (`/ziele`) — create, edit, pause, complete, and delete personal goals.
+- **Einblicke** (`/einblicke`) — six areas over 7, 30, or 90 days. Without your own entries the curves are demo data.
+- **Tagebuch** (`/tagebuch`) — private notes on this device, with search, tags, edit, and delete.
 
-Replies use OpenAI. The model name lives in `.env` as `OPENAI_MODEL` (default `gpt-6-luna`, the cheap tier). Set it to `gpt-5.6-luna` to use that model instead. Copy `.env.example` to `.env` and add your key. The key stays out of the source tree.
+Ein Moment für dich (`/moment`) opens breathing, a body check-in, and thought sorting. Profile (`/profil`) holds your name, the demo-data switch, and a reset.
+
+Replies use OpenAI when `OPENAI_API_KEY` is set. Otherwise the app answers with a fixed local line and says so in the profile. The model name lives in `.env` as `OPENAI_MODEL` (default `gpt-6-luna`). Set it to `gpt-5.6-luna` to switch. The key stays out of the source tree.
 
 ## Later
 
 A user-specific memory: entities, relations, and a database.
 
-## Run
+## Clone and start
+
+Backend and the pages are one process. The server serves the screens and answers `POST /api/reply`. There is no separate frontend server to start.
+
+You need [uv](https://docs.astral.sh/uv/) and Python 3.13.
 
 ```bash
+git clone https://github.com/MicTec97/therapy-session.git
+cd therapy-session
 uv sync
+```
+
+Copy the env file and put your key in `OPENAI_API_KEY`. Without a key the app still opens and answers with a fixed local line.
+
+```bash
+# macOS / Linux
+cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
+```
+
+Start the app:
+
+```bash
 uv run uvicorn innera.app:app --reload
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). `--reload` picks up Python and template changes. The model name is `OPENAI_MODEL` in `.env` (default `gpt-6-luna`).
 
 ## On an iPhone
 

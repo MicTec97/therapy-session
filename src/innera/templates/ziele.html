@@ -2,30 +2,76 @@
 
 {% block content %}
 <header class="page-head">
-  <p class="tag">Über die Zeit</p>
-  <h1>Ziele</h1>
-  <p>Karriere und Beziehung. Der Fortschritt kommt aus deinen Check-ups.</p>
+  <h1>Dein Weg</h1>
+  <p>Kleine Schritte zählen.</p>
 </header>
-<div id="goal-list" class="stack"></div>
-<form id="goal-form" class="panel">
-  <h2>Ziel setzen</h2>
-  <div class="choices" role="group" aria-label="Bereiche">
-    {% for area in areas %}
-    <label class="choice">
-      <input type="checkbox" name="area" value="{{ area }}">
-      <span>{{ area }}</span>
-    </label>
-    {% endfor %}
+
+<div class="actions" style="padding-inline: 8px;">
+  <button id="goal-new" class="btn" type="button">Neues Ziel</button>
+</div>
+
+<section class="section" aria-labelledby="active-goals">
+  <div class="section-head">
+    <h2 id="active-goals">Aktuelle Ziele</h2>
   </div>
-  <label class="field">Optional: ein Satz dazu
-    <input name="goal" type="text" placeholder="Zum Beispiel ein Gespräch vorbereiten" autocomplete="off">
-  </label>
-  <p id="goal-hint" class="form-hint" hidden>Wähl mindestens einen Bereich.</p>
-  <button type="submit">Speichern</button>
-</form>
+  <div id="goal-list" class="goal-list"></div>
+  <div id="goal-empty" class="empty card">
+    <img src="/static/avatar.jpg" alt="">
+    <p>Noch kein eigenes Ziel. Du kannst klein anfangen.</p>
+    <div class="suggestions">
+      <button class="chip suggest" type="button" data-title="Jeden Abend drei Gedanken notieren" data-area="Ruhe" data-frequency="Täglich">Drei Gedanken notieren</button>
+      <button class="chip suggest" type="button" data-title="Zweimal pro Woche bewusst durchatmen" data-area="Körper" data-frequency="Mehrmals pro Woche">Bewusst durchatmen</button>
+      <button class="chip suggest" type="button" data-title="Einmal pro Woche Zeit nur für mich nehmen" data-area="Selbst" data-frequency="Wöchentlich">Zeit nur für mich</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="done-goals">
+  <div class="section-head">
+    <h2 id="done-goals">Abgeschlossen</h2>
+  </div>
+  <div id="goal-done" class="goal-list"></div>
+</section>
+
+<dialog id="goal-dialog">
+  <form id="goal-form">
+    <h2 id="goal-dialog-title">Neues Ziel</h2>
+    <label class="field">Titel
+      <input name="title" id="goal-title" required maxlength="80" autocomplete="off">
+    </label>
+    <label class="field">Beschreibung, optional
+      <textarea name="description" id="goal-description" maxlength="280"></textarea>
+    </label>
+    <label class="field">Bereich
+      <select name="area" id="goal-area">
+        {% for area in areas %}
+        <option>{{ area }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">Frequenz
+      <select name="frequency" id="goal-frequency">
+        {% for frequency in frequencies %}
+        <option>{{ frequency }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">Beginn
+      <input name="start" id="goal-start" type="date" required>
+    </label>
+    <label class="field">Bis, optional
+      <input name="end" id="goal-end" type="date">
+    </label>
+    <p id="goal-hint" class="form-hint"></p>
+    <div class="row">
+      <button class="btn" type="submit">Speichern</button>
+      <button class="btn quiet" id="goal-cancel" type="button">Abbrechen</button>
+    </div>
+  </form>
+</dialog>
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/store.js?v=3"></script>
-<script src="/static/goals.js?v=3"></script>
+<script src="/static/store.js?v=4"></script>
+<script src="/static/goals.js?v=5"></script>
 {% endblock %}

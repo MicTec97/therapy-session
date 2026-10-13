@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <a class="back" href="/">Zurück zum Start</a>
+  <h1>Eine Frage zum Nachdenken</h1>
+  <p id="reflect-question">{{ question }}</p>
+</header>
+<form id="reflect-form" class="card">
+  <label class="field">Deine Gedanken
+    <textarea name="body" id="reflect-body" required></textarea>
+  </label>
+  <div class="suggestions">
+    {% for prompt in prompts %}
+    <button class="chip prompt" type="button">{{ prompt }}</button>
+    {% endfor %}
+  </div>
+  <p id="reflect-hint" class="form-hint"></p>
+  <div class="row">
+    <button class="btn" type="submit">Als Tagebucheintrag sichern</button>
+  </div>
+  <p id="reflect-done" class="feedback" aria-live="polite"></p>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/reflect.js?v=4"></script>
+{% endblock %}

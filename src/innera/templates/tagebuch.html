@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Dein Tagebuch</h1>
+  <p>Ein Ort nur für deine Gedanken.</p>
+</header>
+<label class="sr-only" for="journal-search">Einträge durchsuchen</label>
+<input id="journal-search" class="search" type="search" placeholder="Suchen …" autocomplete="off">
+<div class="actions" style="padding-inline: 8px;">
+  <button id="entry-new" class="btn" type="button">Neuer Eintrag</button>
+</div>
+<div id="entry-list" class="entry-list section"></div>
+<div id="entry-empty" class="empty">
+  <img src="/static/avatar.jpg" alt="">
+  <p>Noch nichts notiert. Ein Satz reicht.</p>
+  <div class="suggestions">
+    {% for prompt in prompts %}
+    <button class="chip prompt" type="button">{{ prompt }}</button>
+    {% endfor %}
+  </div>
+</div>
+<p class="disclosure">Einträge bleiben in der lokalen Ablage dieses Browsers. Sie sind nicht Ende-zu-Ende-verschlüsselt. Wer Zugang zu diesem Gerät hat, kann sie lesen. Löschen entfernt sie nur hier.</p>
+
+<dialog id="entry-dialog">
+  <form id="entry-form">
+    <h2 id="entry-dialog-title">Neuer Eintrag</h2>
+    <label class="field">Überschrift, optional
+      <input name="title" id="entry-title" maxlength="80" autocomplete="off">
+    </label>
+    <label class="field">Text
+      <textarea name="body" id="entry-body" required></textarea>
+    </label>
+    <label class="field">Tags, durch Komma getrennt
+      <input name="tags" id="entry-tags" placeholder="ruhe, arbeit" autocomplete="off">
+    </label>
+    <p id="entry-hint" class="form-hint"></p>
+    <div class="row">
+      <button class="btn" type="submit">Speichern</button>
+      <button class="btn danger" id="entry-delete" type="button" hidden>Löschen</button>
+      <button class="btn quiet" id="entry-cancel" type="button">Abbrechen</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/journal.js?v=4"></script>
+{% endblock %}

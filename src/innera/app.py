@@ -9,19 +9,28 @@ from pathlib import Path
 
 from starlette.applications import Starlette
 from starlette.requests import Request
-from starlette.responses import FileResponse, JSONResponse, Response
+from starlette.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from innera.content import (
-    CHECKUP_EFFORT,
+    BODY_STEPS,
     CHECKUP_MOODS,
+    CHECKUP_REPLIES,
+    EXERCISES,
     GOAL_AREAS,
-    INSIGHT_LINE,
-    SESSION_CLOSING,
-    SESSION_MINUTES,
+    GOAL_FREQUENCIES,
+    IMPULSES,
+    JOURNAL_PROMPTS,
+    QUESTIONS,
     SESSION_OPENING,
+    crisis_reply,
+    home_metrics,
+    insight_metrics,
+    metric_by_slug,
+    metric_view,
+    question_for,
 )
 from innera.providers import FixedReplyProvider, ModelProvider, OpenAIProvider
 
@@ -52,6 +61,19 @@ def install_provider() -> ModelProvider:
     return OpenAIProvider()
 
 
+def provider_note() -> str:
+    if isinstance(provider, FixedReplyProvider):
+        return (
+            "In dieser Sitzung antwortet ein lokaler Demo-Text. "
+            "Es besteht keine Verbindung zu einem KI-Dienst."
+        )
+    model = getattr(provider, "model", "einem austauschbaren Modell")
+    return (
+        f"Antworten kommen über einen KI-Dienst. Das Modell ist {model} und lässt sich "
+        "über OPENAI_MODEL wechseln. Der Schlüssel bleibt auf dem Server."
+    )
+
+
 def _prompt(text: str, goals: object, history: object = None) -> str:
     parts: list[str] = []
     if isinstance(goals, list):
@@ -60,7 +82,7 @@ def _prompt(text: str, goals: object, history: object = None) -> str:
             if not isinstance(goal, dict):
                 continue
             area = str(goal.get("area", "")).strip()
-            detail = str(goal.get("text", "")).strip()
+            detail = str(goal.get("text") or goal.get("title") or "").strip()
             if area or detail:
                 lines.append(f"{area}: {detail}".strip(": "))
         if lines:
@@ -81,53 +103,112 @@ def _prompt(text: str, goals: object, history: object = None) -> str:
     return "\n\n".join(parts)
 
 
+def _page(request: Request, name: str, title: str, active: str, **extra: object) -> Response:
+    context: dict[str, object] = {
+        "title": title,
+        "active": active,
+        "provider_note": provider_note(),
+        "question": question_for(),
+    }
+    context.update(extra)
+    return templates.TemplateResponse(request, name, context)
+
+
+async def start(request: Request) -> Response:
+    return _page(
+        request,
+        "start.html",
+        "Start",
+        "start",
+        metrics=home_metrics(),
+        moods=CHECKUP_MOODS,
+        replies=CHECKUP_REPLIES,
+    )
+
+
 async def chat(request: Request) -> Response:
-    return templates.TemplateResponse(
+    return _page(
         request,
         "chat.html",
-        {
-            "title": "Gesprächsraum",
-            "active": "chat",
-            "areas": GOAL_AREAS,
-            "opening": SESSION_OPENING,
-            "closing": SESSION_CLOSING,
-            "minutes": SESSION_MINUTES,
-        },
+        "Gespräch",
+        "gespraech",
+        opening=SESSION_OPENING,
+        impulses=IMPULSES,
     )
 
 
 async def ziele(request: Request) -> Response:
-    return templates.TemplateResponse(
+    return _page(
         request,
         "ziele.html",
-        {"title": "Ziele", "active": "ziele", "areas": GOAL_AREAS},
+        "Ziele",
+        "ziele",
+        areas=GOAL_AREAS,
+        frequencies=GOAL_FREQUENCIES,
     )
 
 
 async def einblicke(request: Request) -> Response:
-    return templates.TemplateResponse(
+    return _page(
         request,
         "einblicke.html",
-        {
-            "title": "Einblicke",
-            "active": "einblicke",
-            "areas": GOAL_AREAS,
-            "line": INSIGHT_LINE,
-        },
+        "Einblicke",
+        "einblicke",
+        metrics=insight_metrics(30),
     )
+
+
+async def einblick_detail(request: Request) -> Response:
+    metric = metric_by_slug(request.path_params["slug"])
+    if metric is None:
+        return Response("Nicht gefunden", status_code=404)
+    return _page(
+        request,
+        "einblick.html",
+        metric.title,
+        "einblicke",
+        metric=metric_view(metric, 30, chart=True),
+        moods=CHECKUP_MOODS,
+    )
+
+
+async def tagebuch(request: Request) -> Response:
+    return _page(request, "tagebuch.html", "Tagebuch", "tagebuch", prompts=JOURNAL_PROMPTS)
+
+
+async def profil(request: Request) -> Response:
+    return _page(request, "profil.html", "Profil", "profil")
+
+
+async def moment(request: Request) -> Response:
+    return _page(request, "moment.html", "Ein Moment für dich", "start", exercises=EXERCISES)
+
+
+async def uebung(request: Request) -> Response:
+    slug = request.path_params["slug"]
+    exercise = next((item for item in EXERCISES if item["slug"] == slug), None)
+    if exercise is None:
+        return Response("Nicht gefunden", status_code=404)
+    return _page(
+        request,
+        "uebung.html",
+        exercise["title"],
+        "start",
+        exercise=exercise,
+        steps=BODY_STEPS,
+    )
+
+
+async def woche(request: Request) -> Response:
+    return _page(request, "woche.html", "Diese Woche", "start", exercises=EXERCISES)
+
+
+async def reflexion(request: Request) -> Response:
+    return _page(request, "reflexion.html", "Reflexion", "start", prompts=QUESTIONS)
 
 
 async def heute(request: Request) -> Response:
-    return templates.TemplateResponse(
-        request,
-        "heute.html",
-        {
-            "title": "Heute",
-            "active": "heute",
-            "moods": CHECKUP_MOODS,
-            "efforts": CHECKUP_EFFORT,
-        },
-    )
+    return RedirectResponse("/#checkin", status_code=302)
 
 
 async def reply(request: Request) -> Response:
@@ -140,6 +221,9 @@ async def reply(request: Request) -> Response:
     text = str(payload.get("text", "")).strip()
     if not text:
         return JSONResponse({"reply": ""}, status_code=400)
+    crisis = crisis_reply(text)
+    if crisis:
+        return JSONResponse({"reply": crisis, "crisis": True})
     prompt = _prompt(text, payload.get("goals"), payload.get("history"))
     try:
         answer = await asyncio.to_thread(provider.complete, prompt)
@@ -165,9 +249,17 @@ async def manifest(request: Request) -> Response:
 
 app = Starlette(
     routes=[
-        Route("/", chat),
+        Route("/", start),
+        Route("/gespraech", chat),
         Route("/ziele", ziele),
         Route("/einblicke", einblicke),
+        Route("/einblicke/{slug}", einblick_detail),
+        Route("/tagebuch", tagebuch),
+        Route("/profil", profil),
+        Route("/moment", moment),
+        Route("/moment/{slug}", uebung),
+        Route("/woche", woche),
+        Route("/reflexion", reflexion),
         Route("/heute", heute),
         Route("/api/reply", reply, methods=["POST"]),
         Route("/manifest.webmanifest", manifest),

@@ -3,8 +3,8 @@
   "short_name": "INNERA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f6f1e8",
-  "theme_color": "#3c684c",
+  "background_color": "#FAF8F3",
+  "theme_color": "#315C50",
   "icons": [
     {
       "src": "/static/apple-touch-icon.png",

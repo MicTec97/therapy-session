@@ -2,29 +2,38 @@
 
 {% block content %}
 <header class="page-head">
-  <p class="tag">Aus den Fragen</p>
-  <h1>Einblicke</h1>
-  <p id="insight-caption">Beispiel, bis du Check-ups ausfüllst</p>
+  <h1>Deine Einblicke</h1>
+  <p>Beobachte, was sich mit der Zeit verändert.</p>
 </header>
-<article class="chart-card">
-  <h2>Wohlbefinden</h2>
-  <p id="insight-summary" class="delta">+18% im Beispiel</p>
-  <svg class="chart" viewBox="0 0 120 36" aria-hidden="true">
-    <polyline id="insight-line" points="{{ line }}"></polyline>
-  </svg>
-</article>
-<div class="metrics">
-  {% for area in areas %}
-  <article class="card up">
-    <h3>{{ area }}</h3>
-    <p class="state">Im Aufbau</p>
-    <p class="delta">aus deinen Zielen</p>
+<div class="filters" role="group" aria-label="Zeitraum">
+  <button type="button" data-range="7" aria-pressed="false">7 Tage</button>
+  <button type="button" data-range="30" aria-pressed="true">30 Tage</button>
+  <button type="button" data-range="90" aria-pressed="false">90 Tage</button>
+</div>
+<p id="insight-source" class="note">Die Kurven zeigen Beispieldaten, nicht deinen Verlauf. Eine Veränderung ist keine Diagnose.</p>
+<p id="checkin-count" class="hint" style="padding-inline: 8px;"></p>
+<div id="insight-board" class="chart-grid">
+  {% for metric in metrics %}
+  <article class="chart-card tint-{{ metric.tint }}" data-metric="{{ metric.slug }}" data-values="{{ metric.series }}" data-title="{{ metric.title }}" data-hint="{{ metric.hint }}">
+    <header>
+      <h2><a href="/einblicke/{{ metric.slug }}">{{ metric.title }}</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">{{ metric.status }}</p>
+    <p class="chart-delta">{{ metric.delta }}</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf {{ metric.title }}">
+      <path class="area" d="{{ metric.area }}"></path>
+      <polyline class="line" points="{{ metric.spark }}"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="/einblicke/{{ metric.slug }}">Einen Moment festhalten</a></p>
+    <p class="hint">{{ metric.hint }} Eine Veränderung ist keine Bewertung.</p>
   </article>
   {% endfor %}
 </div>
+<p id="topics" class="note"></p>
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/store.js?v=3"></script>
-<script src="/static/insights.js?v=3"></script>
+<script src="/static/store.js?v=4"></script>
+<script src="/static/insights.js?v=5"></script>
 {% endblock %}

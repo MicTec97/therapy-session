@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <a class="back" href="/">Zurück zum Start</a>
+  <h1>Ein Moment für dich</h1>
+  <p>Drei kurze Übungen. Du kannst jede jederzeit beenden.</p>
+</header>
+<div class="exercise-list section">
+  {% for exercise in exercises %}
+  <article class="exercise-card">
+    <header>
+      <h2>{{ exercise.title }}</h2>
+      <span class="badge">{{ exercise.minutes }} Min.</span>
+    </header>
+    <p>{{ exercise.text }}</p>
+    <div class="actions">
+      <a class="btn" href="/moment/{{ exercise.slug }}">Beginnen</a>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <a class="back" href="/einblicke">Zurück zu den Einblicken</a>
+  <h1>{{ metric.title }}</h1>
+  <p>{{ metric.hint }}</p>
+</header>
+<article class="chart-card tint-{{ metric.tint }}" id="detail-chart" data-metric="{{ metric.slug }}" data-values="{{ metric.series }}">
+  <span class="badge demo-flag">Beispiel</span>
+  <p class="chart-status">{{ metric.status }}</p>
+  <p class="chart-delta">{{ metric.delta }}</p>
+  <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf {{ metric.title }}">
+    <path class="area" d="{{ metric.area }}"></path>
+    <polyline class="line" points="{{ metric.spark }}"></polyline>
+  </svg>
+  <p class="chart-empty hint" hidden>Noch kein eigener Eintrag in diesem Bereich.</p>
+  <p class="hint">Eine Veränderung ist eine Beobachtung, keine Diagnose und nicht automatisch eine Verbesserung.</p>
+</article>
+<section class="section card" aria-labelledby="rate-title">
+  <h2 id="rate-title">Wie nimmst du das heute wahr?</h2>
+  <div class="scale" role="group" aria-label="{{ metric.title }} heute">
+    {% for slug, label, value in moods %}
+    <button type="button" data-value="{{ value }}" aria-pressed="false">{{ label }}</button>
+    {% endfor %}
+  </div>
+  <div class="actions">
+    <button id="rate-save" class="btn" type="button" disabled>Festhalten</button>
+  </div>
+  <p id="rate-feedback" class="feedback" aria-live="polite"></p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/insights.js?v=5"></script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <p id="today-label" class="date"></p>
+    <h1 id="hello">Schön, dass du da bist.<svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" fill="currentColor"/></svg></h1>
+    <p class="lede">Heute ist ein guter Tag, um ein bisschen mehr auf dich zu hören.</p>
+    <div class="actions">
+      <a class="btn" href="/moment">{% include "icons/sun.html" %} Ein Moment für dich</a>
+    </div>
+  </div>
+  <figure class="hero-figure">
+    <img src="/static/avatar.jpg" alt="Stilisierte Begleiterin von INNERA, mit kastanienbraunem Dutt und terrakottafarbenem Pullover.">
+  </figure>
+</section>
+
+<section class="section" aria-labelledby="entwicklung-title">
+  <div class="section-head">
+    <div>
+      <h2 id="entwicklung-title">Deine Entwicklung</h2>
+      <p>6 Bereiche. Ein ganzheitliches Bild.</p>
+    </div>
+    <span class="badge" id="demo-badge">Beispiel</span>
+  </div>
+  <div class="insights" id="insight-grid">
+    {% for metric in metrics %}
+    <a class="insight-card tint-{{ metric.tint }}" href="/einblicke/{{ metric.slug }}">
+      <header>
+        {% if metric.slug == "stimmung" %}{% include "icons/sun.html" %}
+        {% elif metric.slug == "klarheit" %}{% include "icons/spark.html" %}
+        {% elif metric.slug == "energie" %}{% include "icons/energy.html" %}
+        {% elif metric.slug == "zuversicht" %}{% include "icons/sprout.html" %}
+        {% elif metric.slug == "koerper" %}{% include "icons/body.html" %}
+        {% else %}{% include "icons/moon.html" %}{% endif %}
+        {% include "icons/chevron.html" %}
+      </header>
+      <h3>{{ metric.title }}</h3>
+      <p class="status">{{ metric.status }}</p>
+      <p class="delta">{{ metric.change }} · 14 Tage</p>
+      <svg class="spark" viewBox="0 0 120 36" aria-hidden="true"><polyline points="{{ metric.spark }}"></polyline></svg>
+    </a>
+    {% endfor %}
+  </div>
+  <p class="note" id="demo-note">Die Karten zeigen Beispieldaten, nicht deinen Verlauf. Eigene Check-ins liegen getrennt darunter.</p>
+</section>
+
+<section class="section card" id="checkin" aria-labelledby="checkin-title">
+  <h2 id="checkin-title">Wie fühlst du dich heute?</h2>
+  <p class="hint">Dein Check-in – ganz ohne Bewertung.</p>
+  <div class="moods" role="group" aria-label="Heutige Stimmung">
+    {% for slug, label, value in moods %}
+    <button class="mood" type="button" data-mood="{{ slug }}" data-value="{{ value }}" aria-pressed="false">
+      {% if slug == "sehr-gut" %}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 13.5c.8 1.6 2 2.4 3.5 2.4s2.7-.8 3.5-2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+      {% elif slug == "gut" %}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 14c.7 1 1.7 1.5 3 1.5s2.3-.5 3-1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+      {% elif slug == "okay" %}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 14.5h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+      {% elif slug == "schwierig" %}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 15.2c.7-.8 1.7-1.2 3-1.2s2.3.4 3 1.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+      {% else %}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.8 15.6c.9-1.2 2-1.8 3.2-1.8s2.3.6 3.2 1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+      {% endif %}
+      {{ label }}
+    </button>
+    {% endfor %}
+  </div>
+  <p id="checkin-feedback" class="feedback" aria-live="polite"></p>
+  <div class="actions">
+    <button id="checkin-save" class="btn" type="button" disabled>Festhalten</button>
+  </div>
+</section>
+
+<div class="section split two">
+  <section class="card" aria-labelledby="next-title">
+    <h2 id="next-title">Dein nächster Schritt</h2>
+    <p>Nimm dir 10 Minuten Zeit nur für dich.</p>
+    <div class="meter" id="week-meter" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" aria-label="Übungen diese Woche">
+      <span id="week-meter-bar"></span>
+    </div>
+    <p id="week-meter-label" class="hint">Noch offen diese Woche.</p>
+    <div class="actions">
+      <a class="btn secondary" href="/woche">Diese Woche</a>
+    </div>
+  </section>
+  <section class="card apricot" aria-labelledby="reflect-title">
+    <h2 id="reflect-title">Eine Frage zum Nachdenken</h2>
+    <p>{{ question }}</p>
+    <div class="actions">
+      <a class="btn secondary" href="/reflexion">Antwort aufschreiben</a>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/home.js?v=5"></script>
+{% endblock %}

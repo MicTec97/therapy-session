@@ -7,36 +7,52 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="INNERA">
-    <meta name="theme-color" content="#3c684c">
+    <meta name="theme-color" content="#FAF8F3">
     <title>{{ title }} · INNERA</title>
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-    <link rel="stylesheet" href="/static/app.css?v=2">
+    <link rel="stylesheet" href="/static/app.css?v=12">
   </head>
   <body class="page-{{ active }}">
-    <div class="phone">
-      <main class="screen">
-        {% block content %}{% endblock %}
-      </main>
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <div class="app">
+      <aside class="sidenav">
+        <a class="wordmark brand" href="/">
+          {% include "icons/leaf.html" %}
+          <span>
+            <strong>INNERA</strong>
+            <small>DEIN WEG ZU DIR</small>
+          </span>
+        </a>
+        <nav aria-label="Hauptnavigation">
+          {% include "nav.html" %}
+        </nav>
+        <p class="side-note">Ein Ort zum Reflektieren. Kein Ersatz für Therapie oder medizinische Hilfe.</p>
+      </aside>
+      {% block shell %}
+      <div class="stage">
+        <header class="topbar">
+          <a class="wordmark" href="/">
+            {% include "icons/leaf.html" %}
+            <span>
+              <strong>INNERA</strong>
+              <small>DEIN WEG ZU DIR</small>
+            </span>
+          </a>
+          <a class="icon-button" href="/profil" aria-label="Profil" {% if active == "profil" %}aria-current="page"{% endif %}>
+            {% include "icons/person.html" %}
+          </a>
+        </header>
+        <main id="inhalt">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+      {% endblock %}
       <nav class="tabbar" aria-label="Hauptnavigation">
-        <a href="/" {% if active == "chat" %}aria-current="page"{% endif %}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5 4 20l4.2-1.6A8 8 0 1 0 6 16.5z"/></svg>
-          Raum
-        </a>
-        <a href="/ziele" {% if active == "ziele" %}aria-current="page"{% endif %}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><path d="M12 2.5v2.5"/></svg>
-          Ziele
-        </a>
-        <a href="/einblicke" {% if active == "einblicke" %}aria-current="page"{% endif %}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l4.5-5 3.5 3.5L19 7"/><path d="M15 7h4v4"/></svg>
-          Einblicke
-        </a>
-        <a href="/heute" {% if active == "heute" %}aria-current="page"{% endif %}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
-          Heute
-        </a>
+        {% include "nav.html" %}
       </nav>
     </div>
+    <div id="toast" class="toast" role="status" hidden></div>
     {% block scripts %}{% endblock %}
   </body>
 </html>

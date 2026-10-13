@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Profil</h1>
+  <p id="profile-hello">Schön, dass du da bist.</p>
+</header>
+
+<form id="profile-form" class="card">
+  <label class="field">Name für die Begrüßung
+    <input name="name" id="profile-name" maxlength="40" autocomplete="nickname" placeholder="Wie dürfen wir dich ansprechen?">
+  </label>
+  <label class="field">
+    <span>Beispieldaten in den Karten zeigen</span>
+    <input name="showDemo" id="profile-demo" type="checkbox">
+  </label>
+  <fieldset class="field">
+    <legend>Erinnerung</legend>
+    <label>
+      <input name="notifications" id="profile-notify" type="checkbox">
+      Wunschzeit merken
+    </label>
+    <input name="notifyTime" id="profile-time" type="time" value="20:00">
+    <p class="hint">In dieser Demo wird keine Benachrichtigung gesendet. Die Wunschzeit bleibt nur auf diesem Gerät.</p>
+  </fieldset>
+  <p id="profile-saved" class="feedback" aria-live="polite"></p>
+  <button class="btn" type="submit">Speichern</button>
+</form>
+
+<section class="card">
+  <h2>Datenschutz</h2>
+  <p>Ziele, Check-ins, Tagebuch und Einstellungen liegen in der lokalen Ablage dieses Browsers. Gesprächsverläufe werden nicht still mitgespeichert. Es gibt keine Ende-zu-Ende-Verschlüsselung.</p>
+  <button id="reset-open" class="btn danger" type="button">Demo-Daten zurücksetzen</button>
+</section>
+
+<section class="card">
+  <h2>Zur KI</h2>
+  <p>{{ provider_note }}</p>
+  <p>INNERA stellt keine Diagnose und ersetzt keine Therapie oder medizinische Versorgung.</p>
+</section>
+
+<section class="card">
+  <h2>Hilfe</h2>
+  <p>Wenn es dir schlecht geht und du sofort jemanden brauchst: Notruf 144, Telefonseelsorge Österreich 142, Rat auf Draht 147. Das sind öffentliche Angebote und sollten vor einer produktiven Nutzung geprüft werden.</p>
+</section>
+
+<dialog id="reset-dialog">
+  <form method="dialog">
+    <h2>Daten auf diesem Gerät löschen?</h2>
+    <p>Check-ins, Ziele, Tagebuch, Übungen und Einstellungen in diesem Browser werden entfernt.</p>
+    <div class="row">
+      <button class="btn secondary" value="cancel">Behalten</button>
+      <button class="btn" id="reset-confirm" value="ok">Löschen</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/profile.js?v=4"></script>
+{% endblock %}

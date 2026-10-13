@@ -1,54 +1,97 @@
 {% extends "base.html" %}
 
-{% block content %}
-<section id="welcome" class="welcome">
-  <p class="tag">Bevor wir starten</p>
-  <h1>Woran möchtest du arbeiten?</h1>
-  <p>Deine Ziele geben dem Gespräch und den Check-ups eine Richtung.</p>
-  <form id="welcome-form">
-    <div class="choices" role="group" aria-label="Bereiche">
-      {% for area in areas %}
-      <label class="choice">
-        <input type="checkbox" name="area" value="{{ area }}">
-        <span>{{ area }}</span>
-      </label>
-      {% endfor %}
+{% block shell %}
+<div class="stage chat-stage">
+  <header class="topbar">
+    <a class="wordmark" href="/">
+      {% include "icons/leaf.html" %}
+      <span>
+        <strong>INNERA</strong>
+        <small>DEIN WEG ZU DIR</small>
+      </span>
+    </a>
+    <a class="icon-button" href="/profil" aria-label="Profil">
+      {% include "icons/person.html" %}
+    </a>
+  </header>
+  <main id="inhalt">
+    <header class="room">
+      <img src="/static/avatar.jpg" alt="">
+      <div>
+        <h1>Gespräch</h1>
+        <p>Nur in dieser Sitzung, bis du eine Zusammenfassung sicherst.</p>
+      </div>
+    </header>
+    <div class="row" style="padding-inline: 8px;">
+      <a class="btn quiet" href="/">Zurück zum Start</a>
+      <button id="summary-open" class="btn secondary" type="button">Zusammenfassung</button>
+      <button id="fresh" class="btn quiet" type="button">Neues Gespräch</button>
     </div>
-    <label class="field">Optional: ein Satz dazu
-      <input name="goal" type="text" placeholder="Zum Beispiel ein Gespräch vorbereiten" autocomplete="off">
-    </label>
-    <p id="welcome-hint" class="form-hint" hidden>Wähl mindestens einen Bereich.</p>
-    <button type="submit">Weiter in den Raum</button>
-  </form>
-</section>
+    <div class="chat-body">
+      <div class="thread" id="thread" data-opening="{{ opening }}" aria-live="polite">
+        <article class="bubble assistant">
+          <img src="/static/avatar.jpg" alt="">
+          <div>
+            <p>{{ opening }}</p>
+            <time></time>
+          </div>
+        </article>
+      </div>
+      <div class="impulses" id="impulses">
+        {% for impulse in impulses %}
+        <button class="chip" type="button">{{ impulse }}</button>
+        {% endfor %}
+      </div>
+    </div>
+    <form id="composer" class="composer">
+      <label class="sr-only" for="message">Nachricht</label>
+      <textarea id="message" name="message" rows="1" placeholder="Schreib, was gerade da ist …" autocomplete="off"></textarea>
+      <button type="submit" aria-label="Senden">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M7 11l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+  </main>
+</div>
 
-<header class="room">
-  <span class="avatar" aria-hidden="true">
-    <svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="5"/><path d="M7 26c1.6-4.2 4.8-6.2 9-6.2S23.4 21.8 25 26"/></svg>
-  </span>
-  <div>
-    <p class="tag">Gesprächsraum</p>
-    <h1>Session</h1>
-    <p id="session-status">Bereit · {{ minutes }} Minuten</p>
-  </div>
-  <button id="session-toggle" type="button">Starten</button>
-</header>
-<div
-  id="thread"
-  data-opening="{{ opening }}"
-  data-closing="{{ closing }}"
-  data-minutes="{{ minutes }}"
-></div>
-<form id="composer">
-  <label class="sr-only" for="message">Nachricht</label>
-  <input id="message" name="message" type="text" placeholder="Schreibe deine Nachricht …" autocomplete="off" disabled>
-  <button type="submit" aria-label="Senden">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6.5 11.5 12 6l5.5 5.5"/></svg>
-  </button>
-</form>
+<dialog id="summary-dialog">
+  <form method="dialog" id="summary-form">
+    <h2>Zusammenfassung</h2>
+    <p class="hint">Du kannst alles ändern. Speichern legt einen Tagebucheintrag an. Das Gespräch selbst bleibt nicht gespeichert.</p>
+    <label class="field">Was mich gerade beschäftigt
+      <textarea name="was" id="sum-was"></textarea>
+    </label>
+    <label class="field">Welche Gefühle ich wahrgenommen habe
+      <textarea name="gefuehle" id="sum-gefuehle"></textarea>
+    </label>
+    <label class="field">Welche Gedanken mir wichtig waren
+      <textarea name="gedanken" id="sum-gedanken"></textarea>
+    </label>
+    <label class="field">Was ich mitnehme
+      <textarea name="mitnehmen" id="sum-mitnehmen"></textarea>
+    </label>
+    <label class="field">Ein möglicher kleiner nächster Schritt
+      <textarea name="schritt" id="sum-schritt"></textarea>
+    </label>
+    <div class="row">
+      <button class="btn" type="submit" value="save">Speichern</button>
+      <button class="btn quiet" type="submit" value="discard">Verwerfen</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="fresh-dialog">
+  <form method="dialog">
+    <h2>Neues Gespräch?</h2>
+    <p>Der bisherige Verlauf in dieser Sitzung wird verworfen. Eine schon gespeicherte Zusammenfassung bleibt im Tagebuch.</p>
+    <div class="row">
+      <button class="btn secondary" value="cancel">Behalten</button>
+      <button class="btn" value="ok">Neues Gespräch</button>
+    </div>
+  </form>
+</dialog>
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/store.js?v=3"></script>
-<script src="/static/chat.js?v=3"></script>
+<script src="/static/store.js?v=4"></script>
+<script src="/static/chat.js?v=5"></script>
 {% endblock %}

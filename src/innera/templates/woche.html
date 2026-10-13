@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <a class="back" href="/">Zurück zum Start</a>
+  <h1>Diese Woche</h1>
+  <p>Konkrete Übungen, ohne Streak und ohne Druck.</p>
+</header>
+<div class="exercise-list section" id="week-exercises">
+  {% for exercise in exercises %}
+  <article class="exercise-card">
+    <header>
+      <h2>{{ exercise.title }}</h2>
+      <span class="badge">{{ exercise.minutes }} Min.</span>
+    </header>
+    <p>{{ exercise.text }}</p>
+    <div class="actions">
+      <a class="btn" href="/moment/{{ exercise.slug }}">Öffnen</a>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+<section class="section">
+  <div class="section-head">
+    <h2>Ziele in dieser Woche</h2>
+  </div>
+  <div id="week-goals" class="goal-list"></div>
+  <p id="week-empty" class="hint">Wenn du Ziele anlegst, erscheinen sie hier.</p>
+</section>
+<p id="week-done" class="note"></p>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/store.js?v=4"></script>
+<script src="/static/week.js?v=5"></script>
+{% endblock %}
