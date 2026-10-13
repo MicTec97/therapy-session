@@ -340,6 +340,17 @@ function seriesPoints(values, width, height) {
   return { line, area: commands.join(" ") };
 }
 
+function path(url) {
+  const raw = String(url);
+  if (document.documentElement.dataset.static !== "1") {
+    return raw.startsWith("/") ? raw : `/${raw}`;
+  }
+  const base = document.documentElement.dataset.base || "";
+  let clean = raw.replace(/^\//, "");
+  if (clean && !clean.includes(".") && !clean.endsWith("/")) clean += "/";
+  return `${base}${clean}`;
+}
+
 window.Innera = {
   LABELS,
   TITLES,
@@ -371,4 +382,5 @@ window.Innera = {
   labelFor,
   seriesPoints,
   uid,
+  path,
 };

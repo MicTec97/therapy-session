@@ -85,6 +85,23 @@ form.addEventListener("submit", async (event) => {
   input.disabled = true;
   form.querySelector("button").disabled = true;
   const pending = appendMessage("assistant", "Ich lese gerade.", { pending: true });
+  if (document.documentElement.dataset.static === "1") {
+    const folded = text.toLocaleLowerCase("de");
+    const crisis = ["umbringen", "suizid", "selbstmord", "selbst verletzen", "selbstverletzung", "nicht mehr leben", "will sterben", "mich töten", "mir das leben nehmen", "mir was antun", "mir etwas antun"].some((phrase) => folded.includes(phrase));
+    pending.remove();
+    appendMessage(
+      "assistant",
+      crisis
+        ? "Danke, dass du das sagst. Wenn du in Gefahr bist oder dir gerade etwas antun könntest, hol dir bitte sofort menschliche Hilfe.\n\nNotruf: 144\nTelefonseelsorge Österreich: 142, rund um die Uhr\nRat auf Draht: 147\n\nIch bin kein Ersatz für Notfallhilfe. Diese Nummern sind öffentliche Angebote und sollten vor einer produktiven Nutzung geprüft werden."
+        : "Danke, dass du das teilst. Wir müssen das nicht sofort lösen. Was davon fühlt sich gerade am nächsten an?",
+      { crisis },
+    );
+    sending = false;
+    input.disabled = false;
+    form.querySelector("button").disabled = false;
+    input.focus();
+    return;
+  }
   try {
     const response = await fetch("/api/reply", {
       method: "POST",

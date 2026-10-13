@@ -59,7 +59,7 @@ function showEmpty(card, message) {
   empty.replaceChildren(document.createTextNode(`${message} `));
   if (card.id === "detail-chart") return;
   const link = document.createElement("a");
-  link.href = `/einblicke/${card.dataset.metric}`;
+  link.href = Innera.path(`/einblicke/${card.dataset.metric}`);
   link.textContent = "Einen Moment festhalten";
   empty.append(link);
 }

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de" data-static="1" data-base="../">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="INNERA">
+    <meta name="theme-color" content="#FAF8F3">
+    <title>Einblicke · INNERA</title>
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="apple-touch-icon" href="../static/apple-touch-icon.png">
+    <link rel="stylesheet" href="../static/app.css?v=12">
+  </head>
+  <body class="page-einblicke">
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <div class="app">
+      <aside class="sidenav">
+        <a class="wordmark brand" href="../">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c8-1 12-8 13-15-7 1-13 6-13 15z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 15c2-2 4-5 7-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span>
+            <strong>INNERA</strong>
+            <small>DEIN WEG ZU DIR</small>
+          </span>
+        </a>
+        <nav aria-label="Hauptnavigation">
+          <a class="nav-link" href="../" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Start
+</a>
+<a class="nav-link" href="../gespraech/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5 4.5 20l4-1.4A7.5 7.5 0 1 0 6 16.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Gespräch
+</a>
+<a class="nav-link" href="../ziele/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 5h9l-1.5 3.2L15 11.5H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Ziele
+</a>
+<a class="nav-link" href="../einblicke/" aria-current="page">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16.5 8.5 12l3.2 3L19 7.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7.5h4V11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Einblicke
+</a>
+<a class="nav-link" href="../tagebuch/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h8.5A2.5 2.5 0 0 1 17 7v12.5H8A2 2 0 0 0 6 21.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 4.5v17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  Tagebuch
+</a>
+        </nav>
+        <p class="side-note">Ein Ort zum Reflektieren. Kein Ersatz für Therapie oder medizinische Hilfe.</p>
+      </aside>
+      
+      <div class="stage">
+        <header class="topbar">
+          <a class="wordmark" href="../">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c8-1 12-8 13-15-7 1-13 6-13 15z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 15c2-2 4-5 7-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>
+              <strong>INNERA</strong>
+              <small>DEIN WEG ZU DIR</small>
+            </span>
+          </a>
+          <a class="icon-button" href="../profil/" aria-label="Profil" >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 19.5c1.1-2.8 3-4.2 5.5-4.2s4.4 1.4 5.5 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+        </header>
+        <main id="inhalt">
+          
+<header class="page-head">
+  <h1>Deine Einblicke</h1>
+  <p>Beobachte, was sich mit der Zeit verändert.</p>
+</header>
+<div class="filters" role="group" aria-label="Zeitraum">
+  <button type="button" data-range="7" aria-pressed="false">7 Tage</button>
+  <button type="button" data-range="30" aria-pressed="true">30 Tage</button>
+  <button type="button" data-range="90" aria-pressed="false">90 Tage</button>
+</div>
+<p id="insight-source" class="note">Die Kurven zeigen Beispieldaten, nicht deinen Verlauf. Eine Veränderung ist keine Diagnose.</p>
+<p id="checkin-count" class="hint" style="padding-inline: 8px;"></p>
+<div id="insight-board" class="chart-grid">
+  
+  <article class="chart-card tint-sand" data-metric="stimmung" data-values="3.46,3.61,3.73,3.83,3.89,3.91,3.89,3.85,3.78,3.71,3.63,3.56,3.5,3.46,3.41,3.37,3.32,3.26,3.19,3.11,3.01,2.92,2.83,2.77,2.73,2.74,2.78,2.86,2.97,3.1,3.25,3.38,3.51,3.62,3.7,3.76,3.8,3.82,3.85,3.87,3.9,3.93,3.96,3.99,4.0,3.99,3.96,3.89,3.79,3.66,3.52,3.38,3.24,3.13,3.04,2.99,2.98,2.99,3.04,3.1,3.16,3.23,3.29,3.34,3.38,3.43,3.48,3.54,3.62,3.72,3.84,3.96,4.08,4.19,4.28,4.33,4.34,4.32,4.26,4.16,4.05,3.93,3.82,3.71,3.63,3.57,3.52,3.49,3.46,3.43" data-title="Stimmung" data-hint="Wie sich dein Tag emotional angefühlt hat.">
+    <header>
+      <h2><a href="../einblicke/stimmung/">Stimmung</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Ruhig</p>
+    <p class="chart-delta">+0,2 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Stimmung">
+      <path class="area" d="M0.0,108.0 L11.0,102.3 L22.1,97.4 L33.1,93.4 L44.1,90.1 L55.2,86.0 L66.2,82.0 L77.2,77.1 L88.3,70.6 L99.3,62.4 L110.3,52.7 L121.4,42.9 L132.4,33.2 L143.4,24.2 L154.5,16.9 L165.5,12.8 L176.6,12.0 L187.6,13.6 L198.6,18.5 L209.7,26.6 L220.7,35.6 L231.7,45.4 L242.8,54.3 L253.8,63.3 L264.8,69.8 L275.9,74.6 L286.9,78.7 L297.9,81.2 L309.0,83.6 L320.0,86.0 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,115.0 11.0,108.5 22.1,102.9 33.1,98.2 44.1,94.5 55.2,89.8 66.2,85.2 77.2,79.6 88.3,72.1 99.3,62.8 110.3,51.6 121.4,40.4 132.4,29.2 143.4,19.0 154.5,10.6 165.5,5.9 176.6,5.0 187.6,6.9 198.6,12.5 209.7,21.8 220.7,32.0 231.7,43.2 242.8,53.5 253.8,63.7 264.8,71.2 275.9,76.8 286.9,81.4 297.9,84.2 309.0,87.0 320.0,89.8"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/stimmung/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie sich dein Tag emotional angefühlt hat. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+  <article class="chart-card tint-rose" data-metric="klarheit" data-values="3.26,3.26,3.24,3.19,3.12,3.01,2.89,2.76,2.62,2.5,2.41,2.34,2.31,2.32,2.35,2.4,2.46,2.52,2.57,2.61,2.64,2.67,2.69,2.72,2.76,2.82,2.89,2.98,3.07,3.16,3.24,3.29,3.32,3.3,3.25,3.16,3.06,2.94,2.82,2.71,2.62,2.55,2.51,2.47,2.45,2.44,2.42,2.39,2.35,2.31,2.27,2.23,2.22,2.23,2.27,2.34,2.44,2.56,2.69,2.82,2.93,3.02,3.07,3.1,3.09,3.06,3.02,2.97,2.92,2.88,2.85,2.82,2.8,2.77,2.74,2.68,2.6,2.51,2.4,2.28,2.17,2.08,2.01,1.98,1.99,2.03,2.1,2.19,2.29,2.38" data-title="Mentale Klarheit" data-hint="Wie sortiert oder zerstreut sich deine Gedanken angefühlt haben.">
+    <header>
+      <h2><a href="../einblicke/klarheit/">Mentale Klarheit</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Okay</p>
+    <p class="chart-delta">-0,1 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Mentale Klarheit">
+      <path class="area" d="M0.0,26.6 L11.0,18.9 L22.1,14.6 L33.1,12.0 L44.1,12.9 L55.2,15.4 L66.2,18.9 L77.2,23.1 L88.3,27.4 L99.3,30.9 L110.3,33.4 L121.4,36.0 L132.4,37.7 L143.4,40.3 L154.5,42.9 L165.5,48.0 L176.6,54.9 L187.6,62.6 L198.6,72.0 L209.7,82.3 L220.7,91.7 L231.7,99.4 L242.8,105.4 L253.8,108.0 L264.8,107.1 L275.9,103.7 L286.9,97.7 L297.9,90.0 L309.0,81.4 L320.0,73.7 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,21.7 11.0,12.9 22.1,7.9 33.1,5.0 44.1,6.0 55.2,8.9 66.2,12.9 77.2,17.8 88.3,22.7 99.3,26.6 110.3,29.6 121.4,32.5 132.4,34.5 143.4,37.4 154.5,40.4 165.5,46.2 176.6,54.1 187.6,62.9 198.6,73.8 209.7,85.5 220.7,96.3 231.7,105.2 242.8,112.1 253.8,115.0 264.8,114.0 275.9,110.1 286.9,103.2 297.9,94.4 309.0,84.6 320.0,75.7"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/klarheit/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie sortiert oder zerstreut sich deine Gedanken angefühlt haben. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+  <article class="chart-card tint-apricot" data-metric="energie" data-values="3.48,3.58,3.65,3.69,3.68,3.63,3.55,3.43,3.31,3.17,3.05,2.94,2.86,2.79,2.75,2.72,2.69,2.67,2.65,2.62,2.59,2.56,2.55,2.56,2.6,2.67,2.78,2.91,3.07,3.24,3.4,3.55,3.67,3.76,3.82,3.84,3.83,3.8,3.75,3.71,3.67,3.63,3.59,3.56,3.52,3.47,3.4,3.31,3.2,3.08,2.96,2.84,2.75,2.68,2.66,2.67,2.73,2.82,2.94,3.07,3.2,3.33,3.44,3.53,3.61,3.67,3.73,3.78,3.84,3.9,3.97,4.04,4.1,4.15,4.16,4.15,4.09,4.0,3.88,3.74,3.59,3.44,3.31,3.2,3.13,3.09,3.08,3.09,3.12,3.15" data-title="Energie" data-hint="Wie viel Kraft du für den Tag wahrgenommen hast.">
+    <header>
+      <h2><a href="../einblicke/energie/">Energie</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Wach</p>
+    <p class="chart-delta">+0,3 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Energie">
+      <path class="area" d="M0.0,97.3 L11.0,85.8 L22.1,76.0 L33.1,68.0 L44.1,60.9 L55.2,55.6 L66.2,50.2 L77.2,45.8 L88.3,40.4 L99.3,35.1 L110.3,28.9 L121.4,22.7 L132.4,17.3 L143.4,12.9 L154.5,12.0 L165.5,12.9 L176.6,18.2 L187.6,26.2 L198.6,36.9 L209.7,49.3 L220.7,62.7 L231.7,76.0 L242.8,87.6 L253.8,97.3 L264.8,103.6 L275.9,107.1 L286.9,108.0 L297.9,107.1 L309.0,104.4 L320.0,101.8 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,102.8 11.0,89.5 22.1,78.3 33.1,69.2 44.1,61.0 55.2,54.9 66.2,48.8 77.2,43.7 88.3,37.6 99.3,31.5 110.3,24.4 121.4,17.2 132.4,11.1 143.4,6.0 154.5,5.0 165.5,6.0 176.6,12.1 187.6,21.3 198.6,33.5 209.7,47.8 220.7,63.1 231.7,78.3 242.8,91.6 253.8,102.8 264.8,109.9 275.9,114.0 286.9,115.0 297.9,114.0 309.0,110.9 320.0,107.9"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/energie/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie viel Kraft du für den Tag wahrgenommen hast. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+  <article class="chart-card tint-sage" data-metric="zuversicht" data-values="3.46,3.56,3.64,3.7,3.71,3.7,3.65,3.57,3.49,3.4,3.31,3.24,3.19,3.16,3.14,3.13,3.12,3.1,3.07,3.02,2.97,2.92,2.87,2.84,2.83,2.86,2.92,3.01,3.12,3.24,3.37,3.49,3.59,3.66,3.7,3.72,3.71,3.7,3.68,3.66,3.65,3.65,3.65,3.66,3.66,3.65,3.62,3.56,3.48,3.39,3.28,3.17,3.07,3.0,2.96,2.95,2.97,3.03,3.1,3.19,3.27,3.35,3.42,3.46,3.5,3.53,3.55,3.58,3.63,3.69,3.76,3.84,3.91,3.98,4.03,4.05,4.03,3.99,3.91,3.81,3.69,3.58,3.48,3.4,3.35,3.32,3.31,3.31,3.33,3.34" data-title="Zuversicht" data-hint="Wie zuversichtlich du nach vorne geschaut hast.">
+    <header>
+      <h2><a href="../einblicke/zuversicht/">Zuversicht</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Zuversichtlich</p>
+    <p class="chart-delta">+0,2 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Zuversicht">
+      <path class="area" d="M0.0,108.0 L11.0,98.2 L22.1,89.5 L33.1,84.6 L44.1,79.7 L55.2,76.0 L66.2,73.5 L77.2,69.8 L88.3,63.7 L99.3,56.3 L110.3,47.7 L121.4,37.8 L132.4,29.2 L143.4,20.6 L154.5,14.5 L165.5,12.0 L176.6,14.5 L187.6,19.4 L198.6,29.2 L209.7,41.5 L220.7,56.3 L231.7,69.8 L242.8,82.2 L253.8,92.0 L264.8,98.2 L275.9,101.8 L286.9,103.1 L297.9,103.1 L309.0,100.6 L320.0,99.4 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,115.0 11.0,103.7 22.1,93.8 33.1,88.2 44.1,82.6 55.2,78.3 66.2,75.5 77.2,71.3 88.3,64.2 99.3,55.8 110.3,45.9 121.4,34.6 132.4,24.7 143.4,14.9 154.5,7.8 165.5,5.0 176.6,7.8 187.6,13.5 198.6,24.7 209.7,38.8 220.7,55.8 231.7,71.3 242.8,85.4 253.8,96.7 264.8,103.7 275.9,107.9 286.9,109.4 297.9,109.4 309.0,106.5 320.0,105.1"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/zuversicht/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie zuversichtlich du nach vorne geschaut hast. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+  <article class="chart-card tint-sky" data-metric="koerper" data-values="3.4,3.44,3.46,3.45,3.41,3.34,3.25,3.14,3.03,2.93,2.84,2.78,2.75,2.74,2.76,2.79,2.83,2.87,2.89,2.91,2.91,2.91,2.91,2.93,2.95,3.0,3.07,3.16,3.27,3.38,3.47,3.55,3.61,3.62,3.61,3.57,3.5,3.42,3.35,3.27,3.22,3.18,3.16,3.14,3.14,3.13,3.11,3.07,3.02,2.97,2.91,2.85,2.81,2.79,2.81,2.86,2.93,3.03,3.15,3.26,3.37,3.45,3.51,3.55,3.56,3.56,3.54,3.52,3.51,3.51,3.52,3.54,3.56,3.57,3.57,3.54,3.49,3.42,3.32,3.22,3.11,3.02,2.95,2.9,2.89,2.91,2.95,3.02,3.09,3.16" data-title="Körperliches Wohlbefinden" data-hint="Wie sich dein Körper angefühlt hat, ohne Wertung.">
+    <header>
+      <h2><a href="../einblicke/koerper/">Körperliches Wohlbefinden</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Ganz okay</p>
+    <p class="chart-delta">+0,1 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Körperliches Wohlbefinden">
+      <path class="area" d="M0.0,40.2 L11.0,28.9 L22.1,20.5 L33.1,14.8 L44.1,13.4 L55.2,13.4 L66.2,16.2 L77.2,19.1 L88.3,20.5 L99.3,20.5 L110.3,19.1 L121.4,16.2 L132.4,13.4 L143.4,12.0 L154.5,12.0 L165.5,16.2 L176.6,23.3 L187.6,33.2 L198.6,47.3 L209.7,61.4 L220.7,76.9 L231.7,89.6 L242.8,99.5 L253.8,106.6 L264.8,108.0 L275.9,105.2 L286.9,99.5 L297.9,89.6 L309.0,79.8 L320.0,69.9 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,37.4 11.0,24.4 22.1,14.7 33.1,8.2 44.1,6.6 55.2,6.6 66.2,9.9 77.2,13.1 88.3,14.7 99.3,14.7 110.3,13.1 121.4,9.9 132.4,6.6 143.4,5.0 154.5,5.0 165.5,9.9 176.6,17.9 187.6,29.3 198.6,45.4 209.7,61.6 220.7,79.4 231.7,94.0 242.8,105.3 253.8,113.4 264.8,115.0 275.9,111.8 286.9,105.3 297.9,94.0 309.0,82.6 320.0,71.3"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/koerper/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie sich dein Körper angefühlt hat, ohne Wertung. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+  <article class="chart-card tint-lavender" data-metric="ruhe" data-values="2.83,2.82,2.8,2.76,2.69,2.61,2.51,2.41,2.32,2.24,2.19,2.18,2.2,2.25,2.33,2.42,2.52,2.61,2.7,2.76,2.81,2.84,2.87,2.89,2.92,2.96,3.02,3.08,3.15,3.21,3.26,3.28,3.28,3.24,3.17,3.08,2.96,2.85,2.74,2.65,2.58,2.54,2.53,2.54,2.56,2.59,2.62,2.64,2.65,2.66,2.66,2.66,2.68,2.72,2.78,2.87,2.97,3.09,3.21,3.33,3.42,3.48,3.51,3.51,3.47,3.41,3.34,3.27,3.2,3.15,3.11,3.08,3.06,3.05,3.03,3.0,2.95,2.9,2.83,2.76,2.7,2.65,2.64,2.65,2.7,2.78,2.89,3.01,3.13,3.25" data-title="Innere Ruhe" data-hint="Wie viel Ruhe du dir nehmen konntest.">
+    <header>
+      <h2><a href="../einblicke/ruhe/">Innere Ruhe</a></h2>
+      <span class="badge demo-flag">Beispiel</span>
+    </header>
+    <p class="chart-status">Okay</p>
+    <p class="chart-delta">+0,2 gegenüber den 30 Tagen davor</p>
+    <svg class="chart" viewBox="0 0 320 120" role="img" aria-label="Verlauf Innere Ruhe">
+      <path class="area" d="M0.0,21.9 L11.0,15.3 L22.1,12.0 L33.1,12.0 L44.1,16.4 L55.2,23.0 L66.2,30.8 L77.2,38.5 L88.3,46.2 L99.3,51.7 L110.3,56.1 L121.4,59.4 L132.4,61.7 L143.4,62.8 L154.5,65.0 L165.5,68.3 L176.6,73.8 L187.6,79.3 L198.6,87.0 L209.7,94.8 L220.7,101.4 L231.7,106.9 L242.8,108.0 L253.8,106.9 L264.8,101.4 L275.9,92.6 L286.9,80.4 L297.9,67.2 L309.0,53.9 L320.0,40.7 L320.0,120.0 L0.0,120.0 Z"></path>
+      <polyline class="line" points="0.0,16.4 11.0,8.8 22.1,5.0 33.1,5.0 44.1,10.1 55.2,17.6 66.2,26.5 77.2,35.3 88.3,44.2 99.3,50.5 110.3,55.6 121.4,59.4 132.4,61.9 143.4,63.2 154.5,65.7 165.5,69.5 176.6,75.8 187.6,82.1 198.6,91.0 209.7,99.8 220.7,107.4 231.7,113.7 242.8,115.0 253.8,113.7 264.8,107.4 275.9,97.3 286.9,83.4 297.9,68.2 309.0,53.0 320.0,37.9"></polyline>
+    </svg>
+    <p class="chart-empty hint" hidden>Für diesen Bereich gibt es noch keine Einträge. <a href="../einblicke/ruhe/">Einen Moment festhalten</a></p>
+    <p class="hint">Wie viel Ruhe du dir nehmen konntest. Eine Veränderung ist keine Bewertung.</p>
+  </article>
+  
+</div>
+<p id="topics" class="note"></p>
+
+        </main>
+      </div>
+      
+      <nav class="tabbar" aria-label="Hauptnavigation">
+        <a class="nav-link" href="../" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Start
+</a>
+<a class="nav-link" href="../gespraech/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5 4.5 20l4-1.4A7.5 7.5 0 1 0 6 16.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Gespräch
+</a>
+<a class="nav-link" href="../ziele/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 5h9l-1.5 3.2L15 11.5H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  Ziele
+</a>
+<a class="nav-link" href="../einblicke/" aria-current="page">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16.5 8.5 12l3.2 3L19 7.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7.5h4V11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Einblicke
+</a>
+<a class="nav-link" href="../tagebuch/" >
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h8.5A2.5 2.5 0 0 1 17 7v12.5H8A2 2 0 0 0 6 21.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 4.5v17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  Tagebuch
+</a>
+      </nav>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    
+<script src="../static/store.js?v=5"></script>
+<script src="../static/insights.js?v=6"></script>
+
+  </body>
+</html>

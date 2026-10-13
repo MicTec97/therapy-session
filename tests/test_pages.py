@@ -244,3 +244,24 @@ def test_openai_provider_uses_the_chosen_model() -> None:
     assert captured["model"] == "gpt-5.6-luna"
     assert captured["reasoning_effort"] == "none"
     assert DEFAULT_MODEL == "gpt-6-luna"
+
+
+def test_pages_export_is_a_relative_click_dummy(tmp_path: Path) -> None:
+    from innera.export_pages import export_pages
+
+    dest = export_pages(tmp_path)
+    home = (dest / "index.html").read_text(encoding="utf-8")
+    room = (dest / "gespraech" / "index.html").read_text(encoding="utf-8")
+    detail = (dest / "einblicke" / "stimmung" / "index.html").read_text(encoding="utf-8")
+
+    assert "Schön, dass du da bist" in home
+    assert 'data-static="1"' in home
+    assert 'href="gespraech/"' in home
+    assert 'href="/gespraech"' not in home
+    assert "static/app.css" in home
+    assert (dest / "static" / "avatar.jpg").is_file()
+    assert (dest / ".nojekyll").is_file()
+    assert 'data-base="../"' in room
+    assert 'data-base="../../"' in detail
+    assert "sk-" not in home
+    assert "api.openai.com" not in room

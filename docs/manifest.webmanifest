@@ -1,0 +1,16 @@
+{
+  "name": "INNERA",
+  "short_name": "INNERA",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FAF8F3",
+  "theme_color": "#315C50",
+  "icons": [
+    {
+      "src": "static/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -17,7 +17,7 @@ active.forEach((goal) => {
   meta.textContent = goal.status === "paused" ? "Pausiert" : `${goal.frequency}${count ? ` · ${count} mal beachtet` : ""}`;
   const link = document.createElement("a");
   link.className = "btn secondary";
-  link.href = "/ziele";
+  link.href = Innera.path("/ziele");
   link.textContent = "Zum Ziel";
   article.append(heading, meta, link);
   list.append(article);

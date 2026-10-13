@@ -73,7 +73,7 @@ function renderPersonal() {
       .sort((a, b) => a.day.localeCompare(b.day));
     const card = document.createElement("a");
     card.className = `insight-card tint-${Innera.TINTS[slug]}`;
-    card.href = `/einblicke/${slug}`;
+    card.href = Innera.path(`/einblicke/${slug}`);
     const title = document.createElement("h3");
     title.textContent = Innera.TITLES[slug];
     const status = document.createElement("p");

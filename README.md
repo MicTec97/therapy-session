@@ -68,6 +68,18 @@ uv run uvicorn innera.app:app --host 0.0.0.0 --port 8000
 
 On the iPhone, open Safari at `http://<this-computer>:8000` (right now that is `http://192.168.1.101:8000`). Tap the Share button, then **Add to Home Screen**, then **Add**. INNERA opens from the icon in its own window, without the Safari toolbar. Windows may ask to allow Python through the firewall the first time.
 
+## GitHub Pages
+
+`docs/` is a static click-through of the same screens for showing the design. It does not run the model. The conversation answers with the fixed local line, and check-ins, goals, and journal notes stay in that browser.
+
+Publish it from the repository settings: Pages, branch `main`, folder `/docs`. The site is then [https://mictec97.github.io/therapy-session/](https://mictec97.github.io/therapy-session/).
+
+Rebuild the folder after screen changes:
+
+```bash
+uv run python -m innera.export_pages
+```
+
 ## Tests
 
 ```bash
